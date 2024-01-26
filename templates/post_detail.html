@@ -1,0 +1,25 @@
+{% extends 'default.html' %}
+{% load censor %}
+
+{% block content %}
+{% if post %}
+<table width="100%" style="margin-top: 50px">
+    <tr>
+        <td>Заголовок</td>
+        <td>Дата публикации</td>
+        <td>Содержание</td>
+        <td>Категория</td>
+    </tr>
+    <tr>
+        <td>{{post.title}}</td>
+        <td>{{post.created_at|date:' d M Y '}}</td>
+        <td>{{post.text|censor}}</td>
+        {% for cat in post.category.all %}
+        <td>{{cat.name}}</td>
+        {% endfor %}
+    </tr>
+</table>
+{% else %}
+<h3> Публикации не найдены </h3>
+{% endif %}
+{% endblock content%}
