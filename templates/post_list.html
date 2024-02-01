@@ -15,6 +15,9 @@
         <td><u>Дата публикации</u></td>
         <td><u>Содержание</u></td>
         <td><u>Категория</u></td>
+
+        <td><u>Тип публикации</u></td>
+
     </tr>
     {% for post in posts %}
     <tr>
@@ -24,10 +27,36 @@
         {% for cat in post.category.all %}
         <td>{{cat.name}}</td>
         {% endfor %}
+
+        <td>{{ post.type }}</td>
     </tr>
     {% endfor %}
 </table>
 {% else %}
 <h3> Публикации не найдены </h3>
 {% endif %}
-{% endblock content%}
+
+<p>&nbsp;</p>
+    {# Добавляем пагинацию на страницу #}
+
+    {# Информация о предыдущих страницах #}
+    <div>{% if page_obj.has_previous %}
+        <a href="?{% url_replace page=1 %}">1</a>
+        {% if page_obj.previous_page_number != 1 %}
+            ...
+            <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+        {% endif %}
+    {% endif %}
+
+    {# Информация о текущей странице #}
+    {{ page_obj.number }}
+
+    {# Информация о следующих страницах #}
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+        {% if paginator.num_pages != page_obj.next_page_number %}
+            ...
+            <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+        {% endif %}
+    {% endif %}</div>
+{% endblock content %}

@@ -1,0 +1,64 @@
+{% extends 'default.html' %}
+{% load censor %}
+
+{% block title %}
+Posts
+{% endblock title %}
+
+{% block content %}
+<h1 style="text-align: center;">Все новости</h1>
+   <form action="" method="get">
+       {{ filterset.form.as_p }}
+       <input type="submit" value="Найти" />
+       <hr />
+   </form>
+
+{% if posts %}
+
+<table width="100%" style="margin-top: 50px">
+
+    <tr>
+        <td><u>Заголовок</u></td>
+        <td><u>Дата публикации</u></td>
+        <td><u>Содержание</u></td>
+        <td><u>Категория</u></td>
+    </tr>
+    {% for post in posts %}
+    <tr>
+        <td>{{post.title}}</td>
+        <td>{{post.created_at|date:' d M Y '}}</td>
+        <td>{{ post.text|truncatewords:20|censor }}</td>
+        {% for cat in post.category.all %}
+        <td>{{cat.name}}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<h3> Публикации не найдены </h3>
+{% endif %}
+
+<p>&nbsp;</p>
+    {# Добавляем пагинацию на страницу #}
+
+    {# Информация о предыдущих страницах #}
+    <div>{% if page_obj.has_previous %}
+        <a href="?{% url_replace page=1 %}">1</a>
+        {% if page_obj.previous_page_number != 1 %}
+            ...
+            <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+        {% endif %}
+    {% endif %}
+
+    {# Информация о текущей странице #}
+    {{ page_obj.number }}
+
+    {# Информация о следующих страницах #}
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+        {% if paginator.num_pages != page_obj.next_page_number %}
+            ...
+            <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+        {% endif %}
+    {% endif %}</div>
+{% endblock content %}
