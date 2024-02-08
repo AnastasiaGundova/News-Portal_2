@@ -1,0 +1,26 @@
+{% extends 'start_page.html' %}
+
+{% block content %}
+<h2>&nbsp;</h2>
+<h2> Войти в систему </h2>
+<hr>
+<h2>&nbsp;</h2>
+<form method="post" action="{% url 'login' %}">
+{% csrf_token %}
+<table>
+<tr>
+    <td>{{ form.username.label_tag }}</td>
+    <td>{{ form.username }}</td>
+</tr>
+<tr>
+    <td>{{ form.password.label_tag }}</td>
+    <td>{{ form.password }}</td>
+</tr>
+</table>
+<h2>&nbsp;</h2>
+<input type="submit" value="Войти">
+</form>
+<h2>&nbsp;</h2>
+<hr>
+<p style="text-align: left;"><button> <a href="/sign/signup"> Регистрация </a></button>&nbsp;</p>
+{% endblock %}

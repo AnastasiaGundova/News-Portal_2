@@ -25,9 +25,14 @@ SECRET_KEY = 'django-insecure-ph_lpa1t05l@s(=h_*r*p8tkwq2eqx@&rithrh#m^^!$2l7usy
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 ALLOWED_HOSTS = []
-
+ACCOUNT_FORMS = {'signup': 'sign.models.CommonSignupForm'}
 
 # Application definition
 
@@ -43,8 +48,17 @@ INSTALLED_APPS = [
     'django.contrib.flatpages',
     'news',
     'django_filters',
+    'sign',
+    'protect',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+
 ]
 
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -56,6 +70,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'NewsPortal.urls'
@@ -71,10 +86,17 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
             ],
         },
     },
 ]
+
+
+LOGIN_URL = '/sign/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/sign/login/'
+
 
 WSGI_APPLICATION = 'NewsPortal.wsgi.application'
 
@@ -119,6 +141,14 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+
 
 
 # Static files (CSS, JavaScript, Images)

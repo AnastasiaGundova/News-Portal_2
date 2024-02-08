@@ -1,0 +1,14 @@
+{% extends 'start_page.html' %}
+
+{% block content %}
+<h2>&nbsp;</h2>
+<h2 style="text-align: left;">Регистрация</h2>
+
+<h2>&nbsp;</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Продолжить">
+</form>
+{% endblock content %}
+
