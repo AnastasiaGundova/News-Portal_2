@@ -1,11 +1,18 @@
 {% extends 'default.html' %}
 
 {% block content %}
-<h1>Создать новость</h1>
-<hr>
-<form action="" method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Save" />
-</form>
+<div class="text animate__animated animate__fadeInUp" align="center">
+<h3>Создать новость</h3>
+    <form method="post" action=""><font size="4">
+        {% csrf_token %}
+            {{ form.label_tag }}Заголовок {{ form.title }}<br>
+            {{ form.label_tag }}Автор {{ form.author }}<br>
+            {{ form.label_tag }}Категория {{ form.category }}<br>
+            {{ form.label_tag }}Содержание {{ form.text }}<br>
+
+        <input type="submit" value="Save" />
+    </font>
+    </form>
+    <br>
+</div>
 {% endblock content %}
