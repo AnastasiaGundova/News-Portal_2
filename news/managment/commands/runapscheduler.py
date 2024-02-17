@@ -68,7 +68,7 @@ class Command(BaseCommand):
         scheduler.add_job(
             delete_old_job_executions,
             trigger=CronTrigger(
-                day_of_week="fri", hour="22", minute="30"
+                day_of_week="mon", hour="00", minute="00"
             ),
 
             id="delete_old_job_executions",
