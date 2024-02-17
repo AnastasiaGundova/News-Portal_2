@@ -33,7 +33,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 ALLOWED_HOSTS = []
 ACCOUNT_FORMS = {'signup': 'sign.models.CommonSignupForm'}
@@ -59,7 +59,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-
+    'django_apscheduler',
 ]
 
 SITE_ID = 1
@@ -100,7 +100,6 @@ TEMPLATES = [
 LOGIN_URL = '/sign/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/sign/login/'
-
 
 
 WSGI_APPLICATION = 'NewsPortal.wsgi.application'
@@ -154,8 +153,6 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 
-
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
@@ -178,4 +175,11 @@ EMAIL_USE_SSL = False
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'splashafleck@mail.ru'
 
+# формат даты, которую будет воспринимать наш задачник (вспоминаем модуль по фильтрам)
+APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
+
+# если задача не выполняется за 25 секунд, то она автоматически снимается, можете поставить время побольше, но как правило, это сильно бьёт по производительности сервера
+APSCHEDULER_RUN_NOW_TIMEOUT = 25  # Seconds
+
 SITE_URL = 'http://127.0.0.1:8000'
+

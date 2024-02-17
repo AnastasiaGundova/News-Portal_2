@@ -68,7 +68,7 @@ class Post(models.Model):
         return f'id - {self.pk}: {self.title}'
 
     def get_absolute_url(self):
-        return reverse('product_detail', args=[str(self.id)])
+        return f'/news/{self.id}'
 
 
 class PostCategory(models.Model):
