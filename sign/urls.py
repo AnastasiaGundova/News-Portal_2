@@ -14,7 +14,7 @@ urlpatterns = [
          TemplateView.as_view(template_name='logout_confirm.html'),
          name='logout_confirm'),
     path('signup/',
-         BaseRegisterView.as_view(template_name='sign/signup.html'),
+         BaseRegisterView.as_view(template_name='accounts/signup.html'),
          name='signup'),
     path('upgrade/', upgrade_me, name='upgrade'),
     path('index/',

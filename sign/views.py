@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.views.generic.edit import CreateView
-from .models import BaseRegisterForm
+from .models import BaseRegisterForm, CommonSignupForm
 from django.shortcuts import redirect
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 
 class BaseRegisterView(CreateView):
     model = User
-    form_class = BaseRegisterForm
+    form_class = CommonSignupForm
     success_url = '/'
 
 

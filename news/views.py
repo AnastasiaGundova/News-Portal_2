@@ -15,7 +15,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
-class NewsList(LoginRequiredMixin, ListView):
+class NewsList(ListView):
     model = Post
     template_name = 'post_list.html'
     context_object_name = 'posts'
