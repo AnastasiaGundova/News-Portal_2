@@ -58,7 +58,9 @@ class Command(BaseCommand):
         # добавляем работу нашему задачнику
         scheduler.add_job(
             my_job,
-            trigger=CronTrigger(second="*/10"),
+            trigger=CronTrigger(
+                day_of_week="sun", hour="11", minute="59"
+            ),
             id="my_job",  # уникальный айди
             max_instances=1,
             replace_existing=True,
@@ -68,7 +70,7 @@ class Command(BaseCommand):
         scheduler.add_job(
             delete_old_job_executions,
             trigger=CronTrigger(
-                day_of_week="sun", hour="11", minute="49"
+                day_of_week="sun", hour="11", minute="57"
             ),
 
             id="delete_old_job_executions",
