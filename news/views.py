@@ -1,5 +1,6 @@
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
-# Create your views here.
+from django.views import View
 
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
@@ -10,9 +11,15 @@ from .filters import PostFilter
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
-from django.contrib.auth.mixins import LoginRequiredMixin
-
 from django.contrib.auth.mixins import PermissionRequiredMixin
+
+from .tasks import post_notification, weekly_newsletter
+
+
+class IndexView(View):
+    def get(self, request):
+        weekly_newsletter.delay()
+        return HttpResponse('Hello!')
 
 
 class NewsList(ListView):
@@ -68,6 +75,7 @@ class PostCreate(PermissionRequiredMixin, CreateView):
             post.type = 'N'
 
         post.save()
+        post_notification.delay(post.pk)
         return super().form_valid(form)
 
 

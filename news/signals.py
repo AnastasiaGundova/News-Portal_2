@@ -5,6 +5,7 @@ from django.template.loader import render_to_string
 
 from NewsPortal import settings
 from news.models import PostCategory
+from .tasks import post_notification
 
 
 def send_notifications(preview, pk, title, subscribers):
@@ -29,13 +30,4 @@ def send_notifications(preview, pk, title, subscribers):
 @receiver(m2m_changed, sender=PostCategory)
 def notification_about_new_post(sender, instance, **kwargs):
     if kwargs['action'] == 'post_add':
-        categories = instance.category.all()
-        subscribers_emails = []
-
-        for cat in categories:
-            subscribers = cat.subscribers.all()
-            subscribers_emails += [s.email for s in subscribers]
-
-        subscribers_emails = set(subscribers_emails)
-
-        send_notifications(instance.preview(), instance.pk, instance.title, subscribers_emails)
+        post_notification.delay(instance.pk)
