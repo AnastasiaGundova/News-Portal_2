@@ -12,7 +12,7 @@ from news.models import Post, Category
 @shared_task
 def post_notification(pk):
     post = Post.objects.get(pk=pk)
-    categories = post.categories.all()
+    categories = post.category.all()
     title = post.title
     subscribers_emails = []
 
