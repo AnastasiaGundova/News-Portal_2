@@ -1,0 +1,2 @@
+30.03.2024 18-40-41 INFO "GET /sign/login/?next=/ HTTP/1.1" 200 2947 C:\Users\Splas\PycharmProjects\pythonProject12\NewsPortal\venv\Lib\site-packages\django\core\servers\basehttp.py None
+30.03.2024 18-40-41 INFO "GET /sign/login/?next=/ HTTP/1.1" 200 2947 C:\Users\Splas\PycharmProjects\pythonProject12\NewsPortal\venv\Lib\site-packages\django\core\servers\basehttp.py None
