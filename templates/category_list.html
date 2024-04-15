@@ -1,46 +1,24 @@
-{% load i18n %}
-<html lang="en">
-
 {% extends 'default.html' %}
+{% load i18n %}
 {% load censor %}
 
 {% block content %}
-
-
-<form action="{% url 'set_language' %}" method="POST"> {% csrf_token %} <!-- Не забываем по csrf_token для POST запросов -->
-        <input type="hidden" name="next" value="{{ redirect_to }}">
-
-        <select name="language" id="">
-            {% get_available_languages as LANGUAGES %} <!-- получаем языки -->
-            {% get_language_info_list for LANGUAGES as languages %} <!-- Помещаем их в список languages -->
-
-            {% for language in languages %} <!-- Итерируясь по списку, выводим их название на языке пользователя и код -->
-                <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected {% endif %}>
-                    {{ language.name_local }} - {{ language.code }}
-                </option>
-            {% endfor %}
-        </select>
-        <input type="submit" value="set">
-    </form>
-
-
     {% if is_not_subscribed %}
         <p class="text-center"><a href="{% url 'subscribe' category.id %}" class="btn btn-secondary btn-sm">Подписаться</a></p>
     {% endif %}
     {% if category_news_list %}
 
-    <p>&nbsp;</p>
-    <h1 style="text-align: center;">{% trans "Все посты" %}!</h1>
+    <h1 style="text-align: center">{% trans "All posts for this category" %}</h1>
     <hr />
 
     <table width="100%" style="margin-top: 50px">
 
         <tr>
-            <td><u>{% trans "Заголовок" %}!</u></td>
-            <td><u>{% trans "Дата публикации" %}!</u></td>
-            <td><u>{% trans "Содержание" %}!</u></td>
-            <td><u>{% trans "Категория" %}!</u></td>
-            <td><u>{% trans "Тип публикации" %}!</u></td>
+            <td><u>{% trans "Heading" %}</u></td>
+            <td><u>{% trans "Date of publication" %}</u></td>
+            <td><u>{% trans "Content" %}</u></td>
+            <td><u>{% trans "Category" %}</u></td>
+            <td><u>{% trans "Type of publication" %}</u></td>
 
         </tr>
         {% for post in category_news_list %}
@@ -59,7 +37,7 @@
 
     </table>
     {% else %}
-    <h3> Публикации не найдены </h3>
+    <h3> {% trans "No publications found" %}</h3>
     {% endif %}
 
     <p>&nbsp;</p>

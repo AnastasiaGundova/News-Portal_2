@@ -42,6 +42,8 @@ ACCOUNT_FORMS = {'signup': 'sign.models.CommonSignupForm'}
 # Application definition
 
 INSTALLED_APPS = [
+    'modeltranslation',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -87,10 +89,10 @@ LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale')
 ]
 
-# LANGUAGE_CODE = 'ru'
+LANGUAGE_CODE = 'ru'
 LANGUAGES = [
     ('en-us', 'English'),
-    ('ru', 'Русский'),
+    ('ru', 'Russian'),
 ]
 
 TEMPLATES = [

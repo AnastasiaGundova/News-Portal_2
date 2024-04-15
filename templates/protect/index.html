@@ -1,21 +1,19 @@
 {% extends 'default.html' %}
-
+{% load i18n %}
 {% block content %}
 <h2>&nbsp;</h2>
-<h2>Страница авторизованного пользователя {{request.user.username}}</h2>
+<h2>{% trans "The authorized user's page" %} {{request.user.username}}</h2>
 <hr>
-<div> Здесь может содержаться персональная информация для каждого пользователя </div>
+<div> {% trans "It may contain personal information for each user" %} </div>
 <h2>&nbsp;</h2>
 
 {% if is_not_authors%}
-<p style="text-align: left;"><button> <a href="sign/upgrade/"> Хочу Authors!</a> </button>&nbsp;</p>
+<p style="text-align: left;"><button> <a href="sign/upgrade/"> {% trans "I want Authors!" %}!</a> </button>&nbsp;</p>
 {% endif %}
-
-<!--<p style="text-align: left;"><button> <a href="sign/logout/confirm/">Выйти</a> </button>&nbsp;</p>-->
 
 <form action="{% url 'logout'  %}" method="post">
     {% csrf_token %}
-    <input type="submit" value="Выйти">
+    <input type="submit" value="log out">
     </form>
 
 {% endblock %}

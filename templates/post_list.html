@@ -1,21 +1,22 @@
 {% extends 'default.html' %}
+{% load i18n %}
 {% load censor %}
 
 {% block content %}
     {% if posts %}
     <p>&nbsp;</p>
-    <h1 style="text-align: center;">Все посты</h1>
+    <h1 style="text-align: center;">{% trans "All posts" %}</h1>
     <hr />
 
     <table width="100%" style="margin-top: 50px">
 
         <tr>
-            <td><u>Заголовок</u></td>
-            <td><u>Дата публикации</u></td>
-            <td><u>Содержание</u></td>
-            <td><u>Категория</u></td>
+            <td><u>{% trans "Heading" %}</u></td>
+            <td><u>{% trans "Date of publication" %}</u></td>
+            <td><u>{% trans "Content" %}</u></td>
+            <td><u>{% trans "Category" %}</u></td>
 
-            <td><u>Тип публикации</u></td>
+            <td><u>{% trans "Type of publication" %}</u></td>
 
         </tr>
         {% for post in posts %}
@@ -33,7 +34,7 @@
 
     </table>
     {% else %}
-    <h3> Публикации не найдены </h3>
+    <h3> {% trans "No publications found" %} </h3>
     {% endif %}
 
     <p>&nbsp;</p>

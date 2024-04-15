@@ -1,14 +1,14 @@
 {% extends 'default.html' %}
-
+{% load i18n %}
 {% block content %}
 <div class="text animate__animated animate__fadeInUp" align="center">
-<h3>Создать новость</h3>
+<h3>{% trans "Create a news item" %}</h3>
     <form method="post" action=""><font size="4">
         {% csrf_token %}
-            {{ form.label_tag }}Заголовок {{ form.title }}<br>
-            {{ form.label_tag }}Автор {{ form.author }}<br>
-            {{ form.label_tag }}Категория {{ form.category }}<br>
-            {{ form.label_tag }}Содержание {{ form.text }}<br>
+            {{ form.label_tag }}{% trans "Heading" %} {{ form.title }}<br>
+            {{ form.label_tag }}{% trans "Author" %} {{ form.author }}<br>
+            {{ form.label_tag }}{% trans "Category" %} {{ form.category }}<br>
+            {{ form.label_tag }}{% trans "Content" %} {{ form.text }}<br>
 
         <input type="submit" value="Save" />
     </font>

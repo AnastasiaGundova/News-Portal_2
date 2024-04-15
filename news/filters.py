@@ -6,13 +6,13 @@ from .models import Author
 class PostFilter(FilterSet):
 
     title = CharFilter(
-        label='Заголовок',
+        label='Heading',
         lookup_expr='iregex'
     )
 
     author = ModelChoiceFilter(
-        empty_label='Все авторы',
-        label='Автор',
+        empty_label='All authors',
+        label='Author',
         queryset=Author.objects.all()
     )
 
@@ -20,5 +20,5 @@ class PostFilter(FilterSet):
         field_name='created_at',
         widget=DateInput(attrs={'type': 'date'}),
         lookup_expr='date__gte',
-        label='Дата'
+        label='Date'
     )

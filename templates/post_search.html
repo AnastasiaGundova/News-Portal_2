@@ -1,4 +1,5 @@
 {% extends 'default.html' %}
+{% load i18n %}
 {% load censor %}
 
 {% block title %}
@@ -6,10 +7,10 @@ Posts
 {% endblock title %}
 
 {% block content %}
-<h1 style="text-align: center;">Все новости</h1>
+<h1 style="text-align: center;">{% trans "All news" %}</h1>
    <form action="" method="get">
        {{ filterset.form.as_p }}
-       <input type="submit" value="Найти" />
+       <input type="submit" value="Search" />
        <hr />
    </form>
 
@@ -18,10 +19,10 @@ Posts
 <table width="100%" style="margin-top: 50px">
 
     <tr>
-        <td><u>Заголовок</u></td>
-        <td><u>Дата публикации</u></td>
-        <td><u>Содержание</u></td>
-        <td><u>Категория</u></td>
+        <td><u>{% trans  "Heading" %}</u></td>
+        <td><u>{% trans  "Date of publication" %}</u></td>
+        <td><u>{% trans  "Content" %}</u></td>
+        <td><u>{% trans  "Category" %}</u></td>
     </tr>
     {% for post in posts %}
     <tr>
@@ -35,13 +36,11 @@ Posts
     {% endfor %}
 </table>
 {% else %}
-<h3> Публикации не найдены </h3>
+<h3> {% trans "No publications found" %} </h3>
 {% endif %}
 
 <p>&nbsp;</p>
-    {# Добавляем пагинацию на страницу #}
 
-    {# Информация о предыдущих страницах #}
     <div>{% if page_obj.has_previous %}
         <a href="?{% url_replace page=1 %}">1</a>
         {% if page_obj.previous_page_number != 1 %}

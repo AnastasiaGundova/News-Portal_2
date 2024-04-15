@@ -1,14 +1,15 @@
 {% extends 'default.html' %}
+{% load i18n %}
 {% load censor %}
 
 {% block content %}
 {% if post %}
 <table width="100%" style="margin-top: 50px">
     <tr>
-        <td>Заголовок</td>
-        <td>Дата публикации</td>
-        <td>Содержание</td>
-        <td>Категория</td>
+        <td>{% trans "Heading" %}</td>
+        <td>{% trans "Date of publication" %}</td>
+        <td>{% trans "Content" %}</td>
+        <td>{% trans "Category" %}</td>
     </tr>
     <tr>
         <td>{{post.title}}</td>
@@ -20,6 +21,6 @@
     </tr>
 </table>
 {% else %}
-<h3> Публикации не найдены </h3>
+<h3> {% trans "No publications found" %}</h3>
 {% endif %}
 {% endblock content%}

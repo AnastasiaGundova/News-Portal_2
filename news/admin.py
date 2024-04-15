@@ -2,6 +2,7 @@
 # Register your models here.
 from django.contrib import admin
 from .models import Category, Author, Post, PostCategory, Comment
+from modeltranslation.admin import TranslationAdmin
 
 
 class PostAdmin(admin.ModelAdmin):
@@ -10,8 +11,18 @@ class PostAdmin(admin.ModelAdmin):
     search_fields = ('title', 'category')
 
 
-admin.site.register(Category)
+class TransCategoryAdmin(PostAdmin, TranslationAdmin):
+    model = Category
+
+
+class TransPostAdmin(PostAdmin, TranslationAdmin):
+    model = Post
+
+
+admin.site.register(Category, TransCategoryAdmin)
 admin.site.register(Author)
-admin.site.register(Post, PostAdmin)
+admin.site.register(Post, TransPostAdmin)
 admin.site.register(PostCategory)
 admin.site.register(Comment)
+
+
