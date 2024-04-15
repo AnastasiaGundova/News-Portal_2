@@ -17,11 +17,18 @@ from .tasks import post_notification, weekly_newsletter
 
 from django.core.cache import cache
 
+from django.utils.translation import gettext as _
 
-class IndexView(View):
+
+class Index(View):
     def get(self, request):
-        weekly_newsletter.delay()
-        return HttpResponse('Hello!')
+        string = _('Hello world')
+
+        context = {
+            'string': string
+        }
+
+        return HttpResponse(render(request, 'index.html', context))
 
 
 class NewsList(ListView):
