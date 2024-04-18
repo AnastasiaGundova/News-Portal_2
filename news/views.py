@@ -54,11 +54,6 @@ class AuthorViewest(viewsets.ModelViewSet):
     serializer_class = AuthorSerializer
 
 
-class UserViewest(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-
 class Index(View):
     def get(self, request):
         models = Post.objects.all(), Category.objects.all()
@@ -101,6 +96,12 @@ class NewsDetail(DetailView):
             cache.set(f'post-{self.kwargs["pk"]}', obj)
         return obj
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['current_time'] = timezone.localtime(timezone.now())
+        context['timezones'] = pytz.common_timezones
+        return context
+
 
 class PostSearch(ListView):
     model = Post
@@ -117,6 +118,8 @@ class PostSearch(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['filterset'] = self.filterset
+        context['current_time'] = timezone.localtime(timezone.now())
+        context['timezones'] = pytz.common_timezones
         return context
 
 
@@ -138,6 +141,12 @@ class PostCreate(PermissionRequiredMixin, CreateView):
         post_notification.delay(post.pk)
         return super().form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['current_time'] = timezone.localtime(timezone.now())
+        context['timezones'] = pytz.common_timezones
+        return context
+
 
 class PostUpdate(PermissionRequiredMixin, UpdateView):
     form_class = PostForm
@@ -146,6 +155,12 @@ class PostUpdate(PermissionRequiredMixin, UpdateView):
     success_url = '/home/news/'
     permission_required = ('news.change_post',)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['current_time'] = timezone.localtime(timezone.now())
+        context['timezones'] = pytz.common_timezones
+        return context
+
 
 class PostDelete(PermissionRequiredMixin, DeleteView):
     model = Post
@@ -153,10 +168,22 @@ class PostDelete(PermissionRequiredMixin, DeleteView):
     success_url = '/home/news/'
     permission_required = ('news.delete_post',)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['current_time'] = timezone.localtime(timezone.now())
+        context['timezones'] = pytz.common_timezones
+        return context
+
 
 @method_decorator(login_required(login_url='/login/'), name='dispatch')
 class ProtectedView(TemplateView):
     template_name = 'prodected_page.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['current_time'] = timezone.localtime(timezone.now())
+        context['timezones'] = pytz.common_timezones
+        return context
 
 
 class CategoryListView(NewsList):
@@ -173,6 +200,8 @@ class CategoryListView(NewsList):
         context = super().get_context_data(**kwargs)
         context['is_not_subscribed'] = self.request.user not in self.category.subscribers.all()
         context['category'] = self.category
+        context['current_time'] = timezone.localtime(timezone.now())
+        context['timezones'] = pytz.common_timezones
         return context
 
 

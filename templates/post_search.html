@@ -8,6 +8,10 @@ Posts
 {% endblock title %}
 
 {% block content %}
+
+{% get_current_timezone as TIME_ZONE %}
+<h1 style="text-align: center;">{{ TIME_ZONE }}</h1>
+
 <h1 style="text-align: center;">{% trans "All news" %}</h1>
    <form action="" method="get">
        {{ filterset.form.as_p }}

@@ -1,5 +1,6 @@
 {% extends 'default.html' %}
 {% load i18n %}
+{% load tz %}
 {% block content %}
 <h2>&nbsp;</h2>
 <h2>{% trans "The authorized user's page" %} {{request.user.username}}</h2>
