@@ -6,12 +6,18 @@ from modeltranslation.admin import TranslationAdmin
 
 
 class PostAdmin(admin.ModelAdmin):
+    model = Post
     list_display = ('title', 'rating')
     list_filter = ('created_at', 'title', 'rating')
     search_fields = ('title', 'category')
 
 
-class TransCategoryAdmin(PostAdmin, TranslationAdmin):
+class CategoryAdmin(admin.ModelAdmin):
+    model = Category
+    search_fields = ['name']
+
+
+class TransCategoryAdmin(CategoryAdmin, TranslationAdmin):
     model = Category
 
 

@@ -17,17 +17,54 @@ from .tasks import post_notification, weekly_newsletter
 
 from django.core.cache import cache
 
+from django.utils import timezone
+
+from django.shortcuts import redirect
+
+import pytz
+
 from django.utils.translation import gettext as _
+
+from django.shortcuts import render
+from rest_framework import viewsets
+from rest_framework import permissions
+
+from .serializers import *
+from .models import *
+
+
+class NewsViewset(viewsets.ModelViewSet):
+    queryset = Post.objects.filter(type='N')
+    serializer_class = NewsSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class ArticlesViewset(viewsets.ModelViewSet):
+    queryset = Post.objects.filter(type='A')
+    serializer_class = ArticlesSerializer
+
+
+class CategoryViewest(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+
+class AuthorViewest(viewsets.ModelViewSet):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
+
+
+class UserViewest(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 
 class Index(View):
     def get(self, request):
-        string = _('Hello world')
-
+        models = Post.objects.all(), Category.objects.all()
         context = {
-            'string': string
+            'models': models,
         }
-
         return HttpResponse(render(request, 'index.html', context))
 
 
@@ -42,7 +79,13 @@ class NewsList(ListView):
         context = super().get_context_data(**kwargs)
         context['filter'] = PostFilter(self.request.GET, queryset=self.get_queryset())
         context['is_not_author'] = not self.request.user.groups.filter(name='authors').exists()
+        context['current_time'] = timezone.localtime(timezone.now())
+        context['timezones'] = pytz.common_timezones
         return context
+
+    def post(self, request):
+        request.session['django_timezone'] = request.POST['timezone']
+        return redirect('post_list')
 
 
 class NewsDetail(DetailView):

@@ -1,13 +1,35 @@
 {% extends 'default.html' %}
 {% load i18n %}
+{% load tz %}
 {% load censor %}
 
+
 {% block content %}
+<p>&nbsp;</p>
+{% get_current_timezone as TIME_ZONE %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        <label for="timezone">{% trans "Time zone" %}:</label>
+        <select name="timezone">
+            {% for tz in timezones %}
+            <option value="{{ tz }}"{% if tz == TIME_ZONE %} selected{% endif %}>{{ tz }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value='{% trans "Set" %}'>
+    </form>
+
+    {{ TIME_ZONE }}
+    {{ current_time|timezone:TIME_ZONE }} <!-- Отображаем время в выбранном часовом поясе  -->
+
+    {% for model in models %}
+    <div class="model-class">
+        {{ model.name }}
+    </div>
+    {% endfor %}
     {% if posts %}
     <p>&nbsp;</p>
     <h1 style="text-align: center;">{% trans "All posts" %}</h1>
     <hr />
-
     <table width="100%" style="margin-top: 50px">
 
         <tr>

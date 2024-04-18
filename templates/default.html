@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load i18n %}
+{% load tz %}
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -24,7 +25,14 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <form action="{% url 'set_language' %}" method="POST"> {% csrf_token %} <!-- Не забываем по csrf_token для POST запросов -->
+                        {% get_current_timezone as TIME_ZONE %}
+                            <style>
+                             body {
+                                background-color: {% if current_time.hour >= 19 or current_time.hour <= 7 %} #292A31 {% else %} White {% endif %};
+                                color: {% if current_time.hour >= 19 or current_time.hour <= 7 %} #A2A2A2 {% else %} black {% endif %};
+                            }
+                            </style>
+                        <form action="{% url 'set_language' %}" method="POST"> {% csrf_token %} <!-- Не забываем по csrf_token для POST-запросов -->
                             <input type="hidden" name="next" value="{{ redirect_to }}">
 
                             <select name="language" id="">
@@ -32,24 +40,36 @@
                                 {% get_language_info_list for LANGUAGES as languages %} <!-- Помещаем их в список languages -->
 
                                 {% for language in languages %} <!-- Итерируясь по списку, выводим их название на языке пользователя и код -->
-                                    <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected {% endif %}>
+                                    <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected {% endif %} >
                                         {{ language.name_local }} - {{ language.code }}
                                     </option>
                                 {% endfor %}
                             </select>
                             <input type="submit" value="set">
                         </form>
+                        {% for model in models %}
+                        <div class="model-class">
+                            {{ model.name }}
+                        </div>
+
+                        {% endfor %}
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/home/news/">{% trans "Home" %}</a></li>
                         <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/home/news/search/">{% trans "Search" %}</a></li>
-
+                        {% if user.is_authenticated %}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="0,10">{% trans "User" %}</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown" data-bs-popper="static">
                                 <li><a class="dropdown-item" href="http://127.0.0.1:8000/sign/index/">{% trans "Profile" %}</a></li>
-<!--                                <li><a class="dropdown-item" href="http://127.0.0.1:8000/sign/login/">Login</a></li>-->
+                                    <li><a class="dropdown-item" href="http://127.0.0.1:8000/home/news/create/">{% trans "Create News" %}</a></li>
+                                    <li><a class="dropdown-item" href="http://127.0.0.1:8000/home/articles/create/">{% trans "Create Articles" %}</a></li>
                                 <li><a class="dropdown-item" href="http://127.0.0.1:8000/sign/logout/confirm/">{% trans "Logout" %}</a></li>
                             </ul>
                         </li>
+
+                        {% else %}
+                        <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/sign/login/">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/accounts/signup/">Signup</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>

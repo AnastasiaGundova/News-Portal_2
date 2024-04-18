@@ -13,7 +13,7 @@
 
 <form action="{% url 'logout'  %}" method="post">
     {% csrf_token %}
-    <input type="submit" value="log out">
+    <input type="submit" value='{% trans "log out" %}'>
     </form>
 
 {% endblock %}

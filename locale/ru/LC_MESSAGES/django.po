@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-15 18:47+0300\n"
+"POT-Creation-Date: 2024-04-17 11:49+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,67 +20,71 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: .\news\views.py:25
-msgid "Hello world"
-msgstr ""
-
 #: .\templates\category_list.html:11
 msgid "All posts for this category"
 msgstr "Все посты из данной категории"
 
 #: .\templates\category_list.html:17 .\templates\post_create.html:8
-#: .\templates\post_detail.html:9 .\templates\post_list.html:14
-#: .\templates\post_search.html:22
+#: .\templates\post_detail.html:9 .\templates\post_list.html:36
+#: .\templates\post_search.html:23
 msgid "Heading"
 msgstr "Заголовок"
 
 #: .\templates\category_list.html:18 .\templates\post_detail.html:10
-#: .\templates\post_list.html:15 .\templates\post_search.html:23
+#: .\templates\post_list.html:37 .\templates\post_search.html:24
 msgid "Date of publication"
 msgstr "Дата публикации"
 
 #: .\templates\category_list.html:19 .\templates\post_create.html:11
-#: .\templates\post_detail.html:11 .\templates\post_list.html:16
-#: .\templates\post_search.html:24
+#: .\templates\post_detail.html:11 .\templates\post_list.html:38
+#: .\templates\post_search.html:25
 msgid "Content"
 msgstr "Содержание"
 
 #: .\templates\category_list.html:20 .\templates\post_create.html:10
-#: .\templates\post_detail.html:12 .\templates\post_list.html:17
-#: .\templates\post_search.html:25
+#: .\templates\post_detail.html:12 .\templates\post_list.html:39
+#: .\templates\post_search.html:26
 msgid "Category"
 msgstr "Категория"
 
-#: .\templates\category_list.html:21 .\templates\post_list.html:19
+#: .\templates\category_list.html:21 .\templates\post_list.html:41
 msgid "Type of publication"
 msgstr "Тип публикации"
 
 #: .\templates\category_list.html:40 .\templates\post_detail.html:24
-#: .\templates\post_list.html:37 .\templates\post_search.html:39
+#: .\templates\post_list.html:59 .\templates\post_search.html:40
 msgid "No publications found"
 msgstr "Публикации не найдены"
 
-#: .\templates\default.html:23 .\templates\start_page.html:23
+#: .\templates\default.html:24 .\templates\start_page.html:23
 msgid "News Portal"
 msgstr "Новостной Портал"
 
-#: .\templates\default.html:42
+#: .\templates\default.html:56
 msgid "Home"
 msgstr "Главная страница"
 
-#: .\templates\default.html:43
+#: .\templates\default.html:57 .\templates\post_search.html:14
 msgid "Search"
 msgstr "Поиск"
 
-#: .\templates\default.html:46
+#: .\templates\default.html:60
 msgid "User"
 msgstr "Пользователь"
 
-#: .\templates\default.html:48
+#: .\templates\default.html:62
 msgid "Profile"
 msgstr "Профиль"
 
-#: .\templates\default.html:50
+#: .\templates\default.html:63
+msgid "Create News"
+msgstr "Создать Новость"
+
+#: .\templates\default.html:64
+msgid "Create Articles"
+msgstr "Создать Статью"
+
+#: .\templates\default.html:65
 msgid "Logout"
 msgstr "Выйти"
 
@@ -88,13 +92,21 @@ msgstr "Выйти"
 msgid "Do you really want to log out"
 msgstr "Вы действительно хотите выйти"
 
+#: .\templates\logout_confirm.html:8
+msgid "Confirm"
+msgstr "Подтвердить"
+
 #: .\templates\post_create.html:5
-msgid "Create a news item"
-msgstr "Создать новость"
+msgid "Create new post"
+msgstr "Создать новый пост"
 
 #: .\templates\post_create.html:9
 msgid "Author"
 msgstr "Автор"
+
+#: .\templates\post_create.html:13
+msgid "Save"
+msgstr "Сохранить"
 
 #: .\templates\post_delete.html:4
 msgid "Delete a news item"
@@ -108,11 +120,19 @@ msgstr "Удаляем"
 msgid "Edit the news"
 msgstr "Редактировать новость"
 
-#: .\templates\post_list.html:8
+#: .\templates\post_list.html:12
+msgid "Time zone"
+msgstr "Часовой пояс"
+
+#: .\templates\post_list.html:18
+msgid "Set"
+msgstr "Подтвердить"
+
+#: .\templates\post_list.html:31
 msgid "All posts"
 msgstr "Все посты"
 
-#: .\templates\post_search.html:10
+#: .\templates\post_search.html:11
 msgid "All news"
 msgstr "Все новости"
 
@@ -128,6 +148,10 @@ msgstr "Здесь может содержаться личная информа
 msgid "I want Authors!"
 msgstr "Я хочу Authors!"
 
+#: .\templates\protect\index.html:16
+msgid "log out"
+msgstr "Выйти"
+
 #: .\templates\sign\login.html:5 .\templates\sign\login.html:21
 msgid "Log in"
 msgstr "Войти"
@@ -135,6 +159,10 @@ msgstr "Войти"
 #: .\templates\sign\login.html:25
 msgid "Registration"
 msgstr "Регистрация"
+
+#: .\templates\sign\logout.html:4
+msgid "You are logged out of the system"
+msgstr "Вы вышли из системы"
 
 #: .\venv\Lib\site-packages\click\_termui_impl.py:518
 #, python-brace-format
